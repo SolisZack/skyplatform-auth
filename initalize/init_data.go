@@ -5,9 +5,8 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"gorm.io/gorm"
 	"log"
-	"skyplatform-auth"
-	"skyplatform-auth/model"
 	"skyplatform-auth/global"
+	"skyplatform-auth/model"
 	"time"
 )
 
@@ -18,8 +17,8 @@ var authorities = []model.SysAuthority{
 }
 
 var admins = []model.SysUser{
-	{BaseModel: skyplatform_auth.BaseModel{CreatedAt: time.Now(), UpdatedAt: time.Now()}, UUID: uuid.NewV4(), Username: "admin", Password: "123456", NickName: "超级管理员", HeaderImg: "https:///qmplusimg.henrongyi.top/gva_header.jpg", AuthorityId: "888"},
-	{BaseModel: skyplatform_auth.BaseModel{CreatedAt: time.Now(), UpdatedAt: time.Now()}, UUID: uuid.NewV4(), Username: "wwd", Password: "123456", NickName: "caonimabi", HeaderImg: "https:///qmplusimg.henrongyi.top/1572075907logo.png", AuthorityId: "1000"},
+	{BaseModel: model.BaseModel{CreatedAt: time.Now(), UpdatedAt: time.Now()}, UUID: uuid.NewV4(), Username: "admin", Password: "123456", NickName: "超级管理员", HeaderImg: "https:///qmplusimg.henrongyi.top/gva_header.jpg", AuthorityId: "888"},
+	{BaseModel: model.BaseModel{CreatedAt: time.Now(), UpdatedAt: time.Now()}, UUID: uuid.NewV4(), Username: "wwd", Password: "123456", NickName: "caonimabi", HeaderImg: "https:///qmplusimg.henrongyi.top/1572075907logo.png", AuthorityId: "1000"},
 }
 
 var carbines = []gormadapter.CasbinRule{

@@ -1,4 +1,4 @@
-package skyplatform_auth
+package model
 
 import (
 	"gorm.io/gorm"

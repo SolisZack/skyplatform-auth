@@ -1,11 +1,7 @@
 package model
 
-import (
-	"skyplatform-auth"
-)
-
 type SysBaseMenu struct {
-	skyplatform_auth.BaseModel
+	BaseModel
 	MenuLevel     uint                   `json:"-"`
 	ParentId      string                 `json:"parentId" gorm:"comment:父菜单ID"`     // 父菜单ID
 	Path          string                 `json:"path" gorm:"comment:路由path"`        // 路由path
@@ -28,7 +24,7 @@ type Meta struct {
 }
 
 type SysBaseMenuParameter struct {
-	skyplatform_auth.BaseModel
+	BaseModel
 	SysBaseMenuID uint
 	Type          string `json:"type" gorm:"comment:地址栏携带参数为params还是query"` // 地址栏携带参数为params还是query
 	Key           string `json:"key" gorm:"comment:地址栏携带参数的key"`            // 地址栏携带参数的key
