@@ -19,6 +19,7 @@ func InitConfig() {
 	global.CONFIG.Casbin = model.Casbin{ModelPath: "/home/wwd/go/src/skyplatform/common/auth/method/rbac_model.conf"}
 
 	global.CONFIG.JWT = model.JWT{
+		SigningKey: "123456",
 		ExpiresTime: 1111111,
 		BufferTime: 1111111,
 	}

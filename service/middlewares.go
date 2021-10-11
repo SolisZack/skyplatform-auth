@@ -47,7 +47,7 @@ func JWTAuth() gin.HandlerFunc {
 			c.Header("new-token", newToken)
 			c.Header("new-expires-at", strconv.FormatInt(newClaims.ExpiresAt, 10))
 			_, err := jwtService.GetETCDJWT(newClaims.Username)
-			if err != method.ErrorKeyNotFound {
+			if err != nil && err != method.ErrorKeyNotFound {
 				log.Fatalln("Error: get etcd jwt failed ", err)
 			}
 			// 无论如何都要记录当前的活跃状态

@@ -48,26 +48,14 @@ func (authorityService *AuthorityService) DeleteAuthority(auth *model.SysAuthori
 	if !errors.Is(global.DB.Where("authority_id = ?", auth.AuthorityId).First(&model.SysUser{}).Error, gorm.ErrRecordNotFound) {
 		return errors.New("此角色有用户正在使用禁止删除")
 	}
-	db := global.DB.Preload("SysBaseMenus").Where("authority_id = ?", auth.AuthorityId).First(auth)
+	db := global.DB.Where("authority_id = ?", auth.AuthorityId).First(auth)
+	// 删除，而非软删除
 	err = db.Unscoped().Delete(auth).Error
 	if err != nil {
-		return
+		return err
 	}
-	if len(auth.SysBaseMenus) > 0 {
-		err = global.DB.Model(auth).Association("SysBaseMenus").Delete(auth.SysBaseMenus)
-		if err != nil {
-			return
-		}
-		//err = db.Association("SysBaseMenus").Delete(&auth)
-	} else {
-		err = db.Error
-		if err != nil {
-			return
-		}
-	}
-	//err = global.DB.Delete(&[]model.SysUserAuthority{}, "sys_authority_authority_id = ?", auth.AuthorityId).Error
 	CasbinServiceApp.ClearCasbin(0, auth.AuthorityId)
-	return err
+	return nil
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)
@@ -120,15 +108,3 @@ func (authorityService *AuthorityService) GetAuthorityInfo(auth model.SysAuthori
 //	return err
 //}
 
-//@author: [piexlmax](https://github.com/piexlmax)
-//@function: SetMenuAuthority
-//@description: 菜单与角色绑定
-//@param: auth *model.SysAuthority
-//@return: error
-
-func (authorityService *AuthorityService) SetMenuAuthority(auth *model.SysAuthority) error {
-	var s model.SysAuthority
-	global.DB.Preload("SysBaseMenus").First(&s, "authority_id = ?", auth.AuthorityId)
-	err := global.DB.Model(&s).Association("SysBaseMenus").Replace(&auth.SysBaseMenus)
-	return err
-}

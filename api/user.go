@@ -4,9 +4,9 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"log"
-	"skyplatform-auth/model"
 	"skyplatform-auth/global"
 	"skyplatform-auth/method"
+	"skyplatform-auth/model"
 	"skyplatform-auth/request"
 	"skyplatform-auth/response"
 	"skyplatform-auth/utils"
@@ -65,7 +65,7 @@ func (b *UserApi) tokenNext(c *gin.Context, user model.SysUser) {
 		StandardClaims: jwt.StandardClaims{
 			NotBefore: time.Now().Unix() - 1000,                          // 签名生效时间
 			ExpiresAt: time.Now().Unix() + global.CONFIG.JWT.ExpiresTime, // 过期时间 7天  配置文件
-			Issuer:    "qmPlus",                                          // 签名的发行者
+			Issuer:    "wwd",                                          // 签名的发行者
 		},
 	}
 	token, err := j.CreateToken(claims)
@@ -119,13 +119,13 @@ func (b *UserApi) Register(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	var authorities []model.SysAuthority
-	for _, v := range r.AuthorityIds {
-		authorities = append(authorities, model.SysAuthority{
-			AuthorityId: v,
-		})
+	targetUser := model.SysUser{
+		Username: r.Username,
+		NickName: r.NickName,
+		Password: r.Password,
+		HeaderImg: r.HeaderImg,
+		AuthorityId: r.AuthorityId,
 	}
-	targetUser := model.SysUser{Username: r.Username, NickName: r.NickName, Password: r.Password, HeaderImg: r.HeaderImg, AuthorityId: r.AuthorityId}
 	err, userReturn := userService.Register(targetUser)
 	if err != nil {
 		log.Println("ERROR: register failed ", err)
@@ -143,12 +143,12 @@ func (b *UserApi) Register(c *gin.Context) {
 // @Success 200 {string} string "{"success":true,"data":{},"msg":"修改成功"}"
 // @Router /user/changePassword [post]
 func (b *UserApi) ChangePassword(c *gin.Context) {
-	var targetUser request.ChangePasswordStruct
+	var targetUser request.ChangePassword
 	_ = c.ShouldBindJSON(&targetUser)
-	//if err := utils.Verify(user, utils.ChangePasswordVerify); err != nil {
-	//	response.FailWithMessage(err.Error(), c)
-	//	return
-	//}
+	if err := utils.Verify(targetUser, utils.ChangePasswordVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
 	u := &model.SysUser{Username: targetUser.Username, Password: targetUser.Password}
 	if err, _ := userService.ChangePassword(u, targetUser.NewPassword); err != nil {
 		log.Println("ERROR: change password failed ", err)

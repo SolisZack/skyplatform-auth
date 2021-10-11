@@ -11,6 +11,5 @@ type SysAuthority struct {
 	AuthorityId     string         `json:"authorityId" gorm:"unique;primaryKey;comment:角色ID;size:90"` // 角色ID
 	AuthorityName   string         `json:"authorityName" gorm:"comment:角色名"`                                    // 角色名
 	//DataAuthorityId []SysAuthority `json:"dataAuthorityId" gorm:"many2many:sys_data_authority_id"`
-	SysBaseMenus    []SysBaseMenu `json:"menus" gorm:"many2many:sys_authority_menus;"`
 	DefaultRouter   string        `json:"defaultRouter" gorm:"comment:默认菜单;default:dashboard"` // 默认菜单(默认dashboard)
 }

@@ -1,6 +1,7 @@
 package method
 
 import (
+	"github.com/dgrijalva/jwt-go"
 	uuid "github.com/satori/go.uuid"
 	"skyplatform-auth/global"
 	"skyplatform-auth/request"

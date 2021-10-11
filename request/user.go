@@ -7,19 +7,18 @@ type Register struct {
 	NickName     string   `json:"nickName" gorm:"default:'QMPlusUser'"`
 	HeaderImg    string   `json:"headerImg" gorm:"default:'https://qmplusimg.henrongyi.top/gva_header.jpg'"`
 	AuthorityId  string   `json:"authorityId" gorm:"default:888"`
-	AuthorityIds []string `json:"authorityIds"`
 }
 
 // User login structure
 type Login struct {
 	Username  string `json:"username"`  // 用户名
 	Password  string `json:"password"`  // 密码
-	Captcha   string `json:"captcha"`   // 验证码
-	CaptchaId string `json:"captchaId"` // 验证码ID
+	//Captcha   string `json:"captcha"`   // 验证码
+	//CaptchaId string `json:"captchaId"` // 验证码ID
 }
 
 // Modify password structure
-type ChangePasswordStruct struct {
+type ChangePassword struct {
 	Username    string `json:"username"`    // 用户名
 	Password    string `json:"password"`    // 密码
 	NewPassword string `json:"newPassword"` // 新密码
