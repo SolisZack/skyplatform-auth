@@ -65,7 +65,7 @@ func GenUserRequest(sample []byte) *http.Request{
 		log.Println(err)
 	}
 	req.Header.Add("x-token",
-		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiMTQ5MTQ4NzItOTNiZS00MDgzLWE1MzItM2E5ODBjZGUyZDRmIiwiSUQiOjQsIlVzZXJuYW1lIjoidGVzdENhc2UiLCJOaWNrTmFtZSI6Ind3ZFRlc3RpbmciLCJBdXRob3JpdHlJZCI6IjEyMzUiLCJCdWZmZXJUaW1lIjoxMTExMTExLCJleHAiOjE2MzUwNTIyMzgsImlzcyI6Ind3ZCIsIm5iZiI6MTYzMzk0MDEyN30.Bg2F29Wb8b7fEOSPDDHx2lrCrowEzwB4C-fr1d2vid8")
+		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVVUlEIjoiMTQ5MTQ4NzItOTNiZS00MDgzLWE1MzItM2E5ODBjZGUyZDRmIiwiSUQiOjQsIlVzZXJuYW1lIjoidGVzdENhc2UiLCJOaWNrTmFtZSI6Ind3ZFRlc3RpbmciLCJBdXRob3JpdHlJZCI6IjEyMzUiLCJCdWZmZXJUaW1lIjoxMTExMTExLCJleHAiOjE2MzUwNjQ0MDcsImlzcyI6Ind3ZCIsIm5iZiI6MTYzMzk0MDEyN30.m_EyhZIWSmfTMvclXL3n7TAzgzNCO3GDrMVe5gA-110")
 	return req
 }
 
@@ -102,4 +102,5 @@ func TestClient(t *testing.T) {
 	sample := GenUserSample()
 	req := GenUserRequest(sample)
 	SendPost(req)
+
 }
